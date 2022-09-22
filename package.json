@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node-dev index.ts",
     "build": "tsc",
-    "start": "node dist"
+    "start": "nodemon"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +23,7 @@
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.14",
     "@types/node": "^18.7.18",
+    "nodemon": "^2.0.20",
     "ts-node-dev": "^2.0.0"
   }
 }
