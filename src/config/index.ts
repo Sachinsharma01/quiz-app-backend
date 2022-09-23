@@ -22,5 +22,9 @@ export default {
      */
     api: {
         prefix: '/quiz/api'
-    }
+    },
+    /**
+     * Secret Key to generate the jwt token
+     */
+    secretKey: String(process.env.SECRET_KEY)
 }
