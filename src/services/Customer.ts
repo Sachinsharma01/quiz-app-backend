@@ -1,7 +1,7 @@
 import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 import config from "../config";
-import APIResponses from "../config/APIResponses";
+import ErrorHandler from "../config/Error";
 import IUserDTO from "../interfaces/IUserDTO";
 import { Users } from "../models/User";
 const createToken = async (query: IUserDTO) => {
@@ -11,28 +11,28 @@ const createToken = async (query: IUserDTO) => {
     let response: object = {};
     const SECRET_KEY: string = config.secretKey;
 
-    const user: any = await Users.findOne({ email: query.email });
-    console.log(user)
+    const user: any = await Users.findOne({
+      email: query.email,
+      username: query.username,
+    });
+    console.log(user);
     if (!user) {
       console.error("User does not Exist!!");
       response = {
         error: true,
-        status: 404,
         message: "user does not found!",
         data: {},
       };
     } else {
-
       const validPassword: boolean = await compare(
         query.password,
         user.password
       );
 
       if (!validPassword) {
-        console.error("User does not Exist!!");
+        console.error("Password is incorrect!");
         response = {
           error: true,
-          status: 404,
           message: "Incorrect Password!",
           data: {},
         };
@@ -49,7 +49,6 @@ const createToken = async (query: IUserDTO) => {
 
         response = {
           error: false,
-          status: 200,
           message: "Create token Successful !",
           data: { token },
         };
@@ -58,7 +57,9 @@ const createToken = async (query: IUserDTO) => {
 
     return response;
   } catch (err) {
-    console.log(err);
+    console.error("Error in CUSTOMER service");
+    const info = new Date().getTime();
+    throw new ErrorHandler.BadError(info + "Customer service end with error");
   }
 };
 
