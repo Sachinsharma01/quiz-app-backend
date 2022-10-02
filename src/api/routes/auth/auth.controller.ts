@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import APIResponses from "../../../config/APIResponses";
 import IUserDTO from "../../../interfaces/IUserDTO";
-import Customer from "../../../services/Customer";
+import Auth from "../../../services/auth";
 import ErrorHandler from "../../../config/Error";
 
 export default {
@@ -14,7 +14,7 @@ export default {
         email: req.body?.email,
         password: req.body?.password,
       };
-      const response: any = await Customer.createToken(userData);
+      const response: any = await Auth.createToken(userData);
 
       if (response.error) {
         return APIResponses.badRequest(res, response.message, response);

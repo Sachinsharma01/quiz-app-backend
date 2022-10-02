@@ -4,12 +4,14 @@ interface userDataInterface extends mongoose.Document {
   name: string;
   email: string;
   password: string;
+  quizes: [];
 }
 
 const userSchema: any = new mongoose.Schema(
   {
     username: {
       type: String,
+      requiured: true,
       required: true,
     },
     email: {
@@ -20,6 +22,10 @@ const userSchema: any = new mongoose.Schema(
     password: {
       type: String,
       required: true,
+    },
+    quizes: {
+      type: Array,
+      default: [],
     },
   },
   { collection: "users" }

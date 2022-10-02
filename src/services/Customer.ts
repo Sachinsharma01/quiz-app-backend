@@ -1,68 +1,26 @@
-import { compare } from "bcryptjs";
-import { sign } from "jsonwebtoken";
-import config from "../config";
+import ITokenDTO from "../interfaces/ITokenDTO";
 import ErrorHandler from "../config/Error";
-import IUserDTO from "../interfaces/IUserDTO";
-import { Users } from "../models/User";
-const createToken = async (query: IUserDTO) => {
+import { verify } from "jsonwebtoken";
+import config from "../config";
+const getMeatData = (query: ITokenDTO) => {
+  console.log("getMetaData service started here!");
   try {
-    console.log("Create Token service start here", query);
+    const token: string = query?.token;
 
-    let response: object = {};
-    const SECRET_KEY: string = config.secretKey;
-
-    const user: any = await Users.findOne({
-      email: query.email,
-      username: query.username,
-    });
-    console.log(user);
-    if (!user) {
-      console.error("User does not Exist!!");
-      response = {
-        error: true,
-        message: "user does not found!",
-        data: {},
-      };
-    } else {
-      const validPassword: boolean = await compare(
-        query.password,
-        user.password
-      );
-
-      if (!validPassword) {
-        console.error("Password is incorrect!");
-        response = {
-          error: true,
-          message: "Incorrect Password!",
-          data: {},
-        };
-      } else {
-        const token: string = sign(
-          {
-            email: user.email,
-            name: user.name,
-            salary: user.salary,
-            role: user.role,
-          },
-          SECRET_KEY
-        );
-
-        response = {
-          error: false,
-          message: "Create token Successful !",
-          data: { token },
-        };
-      }
+    if (!token) {
+      throw new ErrorHandler.BadError("Token is does not exists!");
     }
 
-    return response;
+    const SECRET_KEY = config.secretKey;
+    const verifyToken: any = verify(token, SECRET_KEY);
+    console.log(verifyToken);
+    return verifyToken;
   } catch (err) {
-    console.error("Error in CUSTOMER service");
-    const info = new Date().getTime();
-    throw new ErrorHandler.BadError(info + "Customer service end with error");
+    console.log("getMetaData service end with error!");
+    console.log(err);
   }
 };
 
 export default {
-  createToken,
+  getMeatData,
 };
