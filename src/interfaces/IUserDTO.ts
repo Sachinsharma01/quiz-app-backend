@@ -4,4 +4,16 @@ interface IUserDTO {
     email: string;
 }
 
-export default IUserDTO;
+interface IUserValidation {
+    _id: any,
+    username: string,
+    email: string,
+    password?: string,
+    quizes?: string,
+    __v: any
+}
+
+export {
+    IUserValidation,
+    IUserDTO
+};
