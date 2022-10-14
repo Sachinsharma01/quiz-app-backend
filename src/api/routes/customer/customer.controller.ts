@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import APIResponses from "../../../config/APIResponses";
-import Customer from "../../../services/customer";
+import Customer from "../../../services/Customer";
 
 export default {
   getMetaData: async (req: Request, res: Response, next: NextFunction) => {
