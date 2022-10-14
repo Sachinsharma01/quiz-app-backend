@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import APIResponses from "../../../config/APIResponses";
-import IUserDTO from "../../../interfaces/IUserDTO";
+import {IUserDTO} from "../../../interfaces/IUserDTO";
 import Auth from "../../../services/auth";
 import ErrorHandler from "../../../config/Error";
 

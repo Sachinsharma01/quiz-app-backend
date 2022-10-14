@@ -1,19 +1,20 @@
 import { compare } from "bcryptjs";
-import { sign } from "jsonwebtoken";
+import { sign, verify } from 'jsonwebtoken';
 import config from "../config";
 import ErrorHandler from "../config/Error";
-import IUserDTO from "../interfaces/IUserDTO";
+import ITokenDTO from "../interfaces/ITokenDTO";
+import {IUserDTO, IUserValidation} from "../interfaces/IUserDTO";
 import { Users } from "../models/User";
-const createToken = async (query: IUserDTO) => {
+const createToken = async (input: IUserDTO) => {
   try {
-    console.log("Create Token service start here", query);
+    console.log("Create Token service start here", input);
 
     let response: object = {};
     const SECRET_KEY: string = config.secretKey;
 
     const user: any = await Users.findOne({
-      email: query.email,
-      username: query.username,
+      email: input.email,
+      username: input.username,
     });
     console.log(user);
     if (!user) {
@@ -25,7 +26,7 @@ const createToken = async (query: IUserDTO) => {
       };
     } else {
       const validPassword: boolean = await compare(
-        query.password,
+        input.password,
         user.password
       );
 
@@ -60,6 +61,16 @@ const createToken = async (query: IUserDTO) => {
     throw new ErrorHandler.BadError(info + "Customer service end with error");
   }
 };
+
+// const ssIsAuth = async (input: ITokenDTO) => {
+//   const decryptToken: any = verify(input.token, config.secretKey);
+//   const user: any = await Users.findOne({
+//     email: decryptToken.email,
+//     username: decryptToken.username,
+//   })
+//   console.log(user);
+// }
+
 
 export default {
   createToken,
