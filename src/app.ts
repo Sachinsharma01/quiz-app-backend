@@ -5,6 +5,8 @@ import config from "./config";
 import mongooseConnection from "./loaders/mongoose";
 import executeApi from "./api/";
 import { errors } from "celebrate";
+import swaggerUi from 'swagger-ui-express';
+import specs from './swagger';
 
 dotenv.config();
 const app: express.Application = express();
@@ -15,6 +17,9 @@ async function startServer() {
   app.use(cors());
   app.use(errors());
   app.use(express.json());
+
+  app.use('/quiz/api' + '/api-docs/', swaggerUi.serve, swaggerUi.setup(specs));
+
   app.listen(PORT, () => {
     console.log(`######## 🔥 Server Started at ${PORT} 🔥 ########`);
     mongooseConnection();
