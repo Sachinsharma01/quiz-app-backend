@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { celebrate } from 'celebrate';
 import validations from './validations';
 import quizController from './quiz.controller';
+import isAuthorized from '../../middlewares/decrypt';
 
 const route = Router();
 export default (app: any) => {
@@ -15,6 +16,7 @@ export default (app: any) => {
     );
     route.post(
         '/add-quiz',
+        isAuthorized,
         celebrate({
             body: validations.addQuiz,
         }),
@@ -22,6 +24,7 @@ export default (app: any) => {
     );
     route.delete(
         '/delete-quiz',
+        isAuthorized,
         celebrate({
             query: validations.deleteQuiz,
         }),
