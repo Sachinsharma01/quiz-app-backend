@@ -45,12 +45,12 @@ const createToken = async (input: IUserDTO) => {
           },
           SECRET_KEY
         );
-
         response = {
           error: false,
           message: "Create token Successful !",
           data: { token },
         };
+        console.log("Token generated successfully in auth services", response)
       }
     }
 
