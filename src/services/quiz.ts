@@ -63,8 +63,28 @@ const deleteQuiz = async (input: any) => {
   }
 };
 
+const fetchAll = async (input: any) => {
+  try {
+    console.log("fetch all quiz service starts here", input);
+    let response = [];
+    const quizes = await Quizes.find({ author: input.author });
+    console.log("fetch all quiz response in quiz service", quizes);
+    if (quizes.length === 0) {
+      return {
+        message: "no quiz exists, please create one",
+        error: true,
+      };
+    }
+    return quizes;
+  } catch (err) {
+    console.log(err);
+    throw new ErrorHandler.BadError("OOPS! Cannot process your request");
+  }
+};
+
 export default {
   fetchQuiz,
   addQuiz,
   deleteQuiz,
+  fetchAll,
 };

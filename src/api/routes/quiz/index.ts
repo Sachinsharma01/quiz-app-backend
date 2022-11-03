@@ -14,6 +14,11 @@ export default (app: any) => {
         }),
         quizController.fetchQuiz,
     );
+    route.get(
+        '/fetch-all',
+        isAuthorized,
+        quizController.fetchAll,
+    )
     route.post(
         '/add-quiz',
         isAuthorized,
