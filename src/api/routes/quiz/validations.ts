@@ -12,5 +12,8 @@ export default {
   }),
   deleteQuiz: Joi.object({
     quizId: Joi.number().required()
+  }),
+  fetchAll: Joi.object({
+    author: Joi.string().alphanum().required(),
   })
 };
