@@ -2,7 +2,6 @@ import { compare } from "bcryptjs";
 import { sign, verify } from 'jsonwebtoken';
 import config from "../config";
 import ErrorHandler from "../config/Error";
-import ITokenDTO from "../interfaces/ITokenDTO";
 import {IUserDTO, IUserValidation} from "../interfaces/IUserDTO";
 import { Users } from "../models/User";
 const createToken = async (input: IUserDTO) => {
