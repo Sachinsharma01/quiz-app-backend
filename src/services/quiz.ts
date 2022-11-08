@@ -22,8 +22,10 @@ const fetchQuiz = async (input: any) => {
 const addQuiz = async (data: any) => {
   try {
     console.log("add quiz service start here", data);
+    const quizId = Math.random().toString(36).substring(2,8);
     const body: any = {
       totalQuestions: data.totalQuestions || 0,
+      quizId: quizId
     };
     const query: any = { ...data, ...body };
     const result: any = await Quizes.create(query);

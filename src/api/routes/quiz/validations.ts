@@ -1,7 +1,7 @@
 import { Joi } from "celebrate";
 export default {
   fetchQuiz: Joi.object().keys({
-    quizId: Joi.number().required(),
+    quizId: Joi.string().required().length(6),
   }),
   addQuiz: Joi.object({
     title: Joi.string().required(),
@@ -11,7 +11,7 @@ export default {
     questions: Joi.array().optional(),
   }),
   deleteQuiz: Joi.object({
-    quizId: Joi.number().required()
+    quizId: Joi.string().required()
   }),
   fetchAll: Joi.object({
     author: Joi.string().alphanum().required(),
