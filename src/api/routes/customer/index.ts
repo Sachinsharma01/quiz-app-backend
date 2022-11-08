@@ -2,6 +2,7 @@ import { Router } from "express";
 import { celebrate } from "celebrate";
 import validation from "./validation";
 import controller from './customer.controller'
+import isAuthorized from '../../middlewares/decrypt';
 const route = Router();
 
 export default (app: any) => {
@@ -45,6 +46,7 @@ export default (app: any) => {
    */
   route.post(
     "/getMetaData",
+    // isAuthorized,
     celebrate({
       body: validation.metaData,
     }),

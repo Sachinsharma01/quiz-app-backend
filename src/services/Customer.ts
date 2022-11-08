@@ -29,6 +29,7 @@ const getMetaData = async (query: ITokenDTO) => {
         username: user.username,
         email: user.email,
         quizes: user?.quizes,
+        totalQuizes: user?.totalQuizes,
       };
     }
     console.log(user);
@@ -53,10 +54,10 @@ const createUser = async (input: IUserDTO) => {
       response = {
         message: "username already Exists!",
       };
-    } else if(userEmailExist) {
-        response = {
-          message: "email already Exists!",
-        };
+    } else if (userEmailExist) {
+      response = {
+        message: "email already Exists!",
+      };
     } else {
       const hashedPassword: string = await hash(input.password, 15);
       const created: any = await Users.create({

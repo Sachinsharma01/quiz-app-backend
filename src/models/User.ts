@@ -27,6 +27,10 @@ const userSchema: any = new mongoose.Schema(
       type: Array,
       default: [],
     },
+    totalQuizes: {
+      type: Number,
+      default: 0,
+    }
   },
   { collection: "users" }
 );
