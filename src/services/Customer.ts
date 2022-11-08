@@ -1,4 +1,3 @@
-import ITokenDTO from "../interfaces/ITokenDTO";
 import ErrorHandler from "../config/Error";
 import { verify } from "jsonwebtoken";
 import { hash } from "bcryptjs";
@@ -6,7 +5,7 @@ import config from "../config";
 import { Users } from "../models/User";
 import { IUserDTO, IUserValidation } from "../interfaces/IUserDTO";
 const SECRET_KEY = config.secretKey;
-const getMetaData = async (query: ITokenDTO) => {
+const getMetaData = async (query: any) => {
   console.log("getMetaData service started here!");
   try {
     let response: {} = {};
